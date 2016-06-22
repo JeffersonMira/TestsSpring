@@ -1,0 +1,41 @@
+<beans default-autowire="byType" 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/jee
+		http://www.springframework.org/schema/jee/spring-jee-3.1.xsd">
+
+<!-- 		Utilizando o JNDI para obter o resource -->
+<!-- 	<jee:jndi-lookup id="dataSource" jndi-name="/jdbc/SpringForumDS"/> -->
+
+<!-- 			connection baseada em Drivers -->
+<!-- 		<bean id="dataSource" -->
+<!-- 			class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
+<!-- 			<property name="username" value="root" /> -->
+<!-- 			<property name="password" value="usbw" /> -->
+<!-- 			<property name="driverClassName" value="com.mysql.jdbc.Driver" /> -->
+<!-- 			<property name="url" value="jdbc:mysql://localhost:3307/base_spring" /> -->
+<!-- 		</bean> -->
+
+<!-- 			Utilizando um pool de conexões, atravez do C3P0 -->
+			<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+				destroy-method="close">
+				<property name="driverClass" value="com.mysql.jdbc.Driver" />
+				<property name="user" value="root" />
+				<property name="password" value="usbw" />
+				<property name="jdbcUrl" value="jdbc:mysql://localhost:3307/base_spring" />
+				
+				<property name="maxPoolSize" value="10" />
+				<property name="acquireIncrement" value="1" />
+				<property name="maxIdleTime" value="120" />
+				<property name="acquireRetryAttempts" value="10" />
+				<property name="initialPoolSize" value="10" />
+			</bean>
+			
+
+</beans>
