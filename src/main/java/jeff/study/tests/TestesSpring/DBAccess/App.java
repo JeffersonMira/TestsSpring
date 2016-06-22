@@ -9,7 +9,13 @@ public class App {
 
 		 ApplicationContext ap =  new ClassPathXmlApplicationContext("file:src/main/java/jeff/study/tests/TestesSpring/DBAccess/springconfgs/spring-beans.xml");
     	 
-		
+		 PessoaDAO pDAO = (PessoaDAO)ap.getBean("pessoaDAO");
+		 
+		 Pessoa p = new Pessoa();
+		 p.setName("João");
+		 p.setPhone(12345L);
+		 
+		 pDAO.inserir(p);
 	}
 
 }
