@@ -14,31 +14,32 @@
 <!-- 	<jee:jndi-lookup id="dataSource" jndi-name="/jdbc/SpringForumDS"/> -->
 
 <!-- 			connection baseada em Drivers -->
-		<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-			<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-			<property name="url" value="jdbc:mysql://localhost:3306/base_spring" />
-			<property name="username" value="root" />
-			<property name="password" value="usbw" />
-		</bean>
+<!-- 		<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
+<!-- 			<property name="driverClassName" value="com.mysql.jdbc.Driver" /> -->
+<!-- 			<property name="url" value="jdbc:mysql://localhost:3306/base_spring" /> -->
+<!-- 			<property name="username" value="root" /> -->
+<!-- 			<property name="password" value="usbw" /> -->
+<!-- 		</bean> -->
 
 			<bean id="pessoaDAO" class="jeff.study.tests.TestesSpring.DBAccess.PessoaDAO">
 				<property name="datasource" ref="dataSource"/>
 			</bean>
 
+
+<!-- 				Não está funcionando no trabalho, por algum motivo. -->
 <!-- 			Utilizando um pool de conexões, atravez do C3P0 -->
-<!-- 			<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" -->
-<!-- 				destroy-method="close"> -->
-<!-- 				<property name="driverClass" value="com.mysql.jdbc.Driver" /> -->
-<!-- 				<property name="user" value="root" /> -->
-<!-- 				<property name="password" value="usbw" /> -->
-<!-- 				<property name="jdbcUrl" value="jdbc:mysql://localhost:3307/base_spring" /> -->
+			<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"	destroy-method="close">
+				<property name="driverClass" value="com.mysql.jdbc.Driver" />
+				<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/base_spring?user=root&amp;password=usbw" />
+				<property name="user" value="root" />
+				<property name="password" value="usbw" />
 				
-<!-- 				<property name="maxPoolSize" value="1" /> -->
-<!-- 				<property name="acquireIncrement" value="1" /> -->
-<!-- 				<property name="maxIdleTime" value="120" /> -->
-<!-- 				<property name="acquireRetryAttempts" value="10" /> -->
-<!-- 				<property name="initialPoolSize" value="1" /> -->
-<!-- 			</bean> -->
+				<property name="maxPoolSize" value="10" />
+				<property name="acquireIncrement" value="1" />
+				<property name="maxIdleTime" value="120" />
+				<property name="acquireRetryAttempts" value="10" />
+				<property name="initialPoolSize" value="10" />
+			</bean>
 			
 			
 </beans>

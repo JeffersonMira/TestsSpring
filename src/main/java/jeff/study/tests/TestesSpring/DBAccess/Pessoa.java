@@ -8,6 +8,18 @@ public class Pessoa {
 	
 	private Long phone;
 
+	
+	public Pessoa() {
+		super();
+	}
+	
+	public Pessoa(Integer id, String name, Long phone) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.phone = phone;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -31,5 +43,9 @@ public class Pessoa {
 	public void setPhone(Long phone) {
 		this.phone = phone;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Pessoa [id=" + id + ", name=" + name + ", phone=" + phone + "]";
+	}
 }
