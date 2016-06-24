@@ -1,0 +1,72 @@
+<beans default-autowire="byType" 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/jee
+		http://www.springframework.org/schema/jee/spring-jee-3.1.xsd">
+		
+		<!--. O que este bean faz é criar um aspecto do tipo after throw para todos os
+				beans anotados com @Repository . A exceção será interceptada e
+				automaticamente convertida para outra presente na hierarquia de
+				exceções uniformizada do Spring.  -->
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+	
+	<!-- 			connection baseada em Drivers -->
+		<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+			<property name="url" value="jdbc:mysql://localhost:3306/base_spring" />
+			<property name="username" value="root" />
+			<property name="password" value="usbw" />
+		</bean>
+	
+	
+	
+	<!-- MAPEAMENTO DO SESSION FACTORY -->
+	<bean class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+	
+		<property name="dataSource" ref="dataSource"/>
+	
+		<!-- propriedades que normalmente iriam no hibernate.cfg -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect"> org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+		<!-- CONFIGURAÇÃO BASEADA EM XML -->
+		<!-- Locais a onde estão os mapeamentos das classes  -->
+<!-- 		<property name="mappingResources"> -->
+<!-- 			<list> -->
+<!-- 				<value>springforum.entidades.Assunto.hbm.xml</value> -->
+<!-- 				<value>springforum.entidades.Topico.hbm.xml</value> -->
+<!-- 				os demais arquivos seguiriam a mesma regra -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+
+	
+		<!-- CONFIGURAÇÃO BASEADA EM ANOTAÇÕES -->
+		<property name="annotatedClasses">
+			<list>
+				<value>
+					jeff.study.tests.TestesSpring.DBAccess.PessoaDAOHibernate
+				</value>
+			</list>
+		</property>
+
+
+<!-- Ou definindo apenas os pacotes aonde se encontram nossas classes anotadas -->
+<!-- 		<property name="annotatedPackages"> -->
+<!-- 			<list> -->
+<!-- 				<value>br.com.itexto.springforum</value> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+	</bean>
+	
+	<bean id="pessoaDAOHibernate" class="jeff.study.tests.TestesSpring.DBAccess.PessoaDAOHibernate"/>
+			
+</beans>

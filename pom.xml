@@ -73,10 +73,27 @@
 	</dependency>
 
 
+	<!-- It is used on JDBC connection, creating a pool of connections -->
 	<dependency>
 		<groupId>c3p0</groupId>
 		<artifactId>c3p0</artifactId>
 		<version>0.9.1.2</version>
+	</dependency>
+
+
+
+	<!-- This dependency is used for having access to ORM classes: Hibernate, IBatis, JDO and JPA -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-orm</artifactId>
+		<version>3.1.2.RELEASE</version>
+	</dependency>
+  
+   <!-- Hibernate -->
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-core</artifactId>
+		<version>3.6.3.Final</version>
 	</dependency>
   
     <dependency>

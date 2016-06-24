@@ -8,17 +8,32 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class App {
 
 	public static void main(String[] args) {
+//		 testConnectionJDBC();
+//		 testConnectionJDBCTemplate();
+		testConnectionHibernate();
+		
+		
+		 
+	}
 
-//		 ApplicationContext ap =  new ClassPathXmlApplicationContext("file:src/main/java/jeff/study/tests/TestesSpring/DBAccess/springconfgs/spring-beans.xml");
-//    	 
-//		 PessoaDAO pDAO = (PessoaDAO)ap.getBean("pessoaDAO");
-//		 Pessoa p = new Pessoa();
-//		 p.setName("João");
-//		 p.setPhone(12345L);
-//		 pDAO.inserir(p);
-//		 List<Pessoa> ps =  pDAO.findAll();
+	public static void testConnectionJDBC(){
+		 ApplicationContext ap =  new ClassPathXmlApplicationContext("file:src/main/java/jeff/study/tests/TestesSpring/DBAccess/springconfgs/spring-beans.xml");
+   	 
+		 PessoaDAO pDAO = (PessoaDAO)ap.getBean("pessoaDAO");
+		 Pessoa p = new Pessoa();
+		 p.setName("João");
+		 p.setPhone(12345L);
+		 pDAO.inserir(p);
+		 List<Pessoa> ps =  pDAO.findAll();
 		 
 		 
+		 System.out.println("\n------------  Test 1 --------------------");
+		 for (Pessoa pessoa : ps) {
+			System.out.println(pessoa.toString());
+		}
+	}
+	
+	public static void testConnectionJDBCTemplate(){
 		 ApplicationContext ap =  new ClassPathXmlApplicationContext("file:src/main/java/jeff/study/tests/TestesSpring/DBAccess/springconfgs/spring-beans-jdbctemplate.xml");
 		 PessoaDAOJDBCTemplate p = (PessoaDAOJDBCTemplate) ap.getBean("pessoaDAOJDBCTemplate");
 		 
@@ -48,9 +63,13 @@ public class App {
 		 pOther.setPhone(12347L);
 		 Long id = p.Insert(pOther);
 		 System.out.println("Id Inserted is: "+id);
-		 
+	}
+	
+	
+	public static void testConnectionHibernate(){
+		 ApplicationContext ap =  new ClassPathXmlApplicationContext("file:src/main/java/jeff/study/tests/TestesSpring/DBAccess/springconfgs/spring-beans-hibernate.xml");
+		 PessoaDAOHibernate p = (PessoaDAOHibernate) ap.getBean("pessoaDAOHibernate");
 		 
 		 
 	}
-
 }
