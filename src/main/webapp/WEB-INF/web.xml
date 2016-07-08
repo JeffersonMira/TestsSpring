@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	<servlet>
+	
+		<!-- vai procurar o contexto como sendo [servlet-name]-servlet.xml -->
+		<servlet-name>DispatcherServlet</servlet-name>
+		<servlet-class>	org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+		<!-- Também é possível definir manualmente um lugar -->
+<!-- 		<init-param> -->
+<!-- 			<param-name>contextConfigLocation</param-name> -->
+<!-- 			<param-value> -->
+<!-- 				/WEB-INF/spring/spring-servlet.xml -->
+<!-- 			</param-value> -->
+<!-- 		</init-param> -->
+	
+		<load-on-startup>1</load-on-startup>
+	
+	</servlet>
+	
+	<!-- Mandandos todos os requests para o dispatcher do spring mvc. -->
+	<servlet-mapping>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+</web-app>

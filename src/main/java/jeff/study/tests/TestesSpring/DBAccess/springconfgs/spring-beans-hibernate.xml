@@ -1,4 +1,6 @@
-<beans default-autowire="byType" 
+<!-- Se deixar isto aqui, dá problema de dependencia circular.  -->
+<!-- <beans default-autowire="byType"  -->
+<beans 
 	xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:context="http://www.springframework.org/schema/context"
@@ -9,6 +11,9 @@
 		http://www.springframework.org/schema/context/spring-context-4.0.xsd
 		http://www.springframework.org/schema/jee
 		http://www.springframework.org/schema/jee/spring-jee-3.1.xsd">
+		
+		
+	<context:component-scan base-package="jeff.study.tests.TestesSpring.DBAccess" />
 		
 		<!--. O que este bean faz é criar um aspecto do tipo after throw para todos os
 				beans anotados com @Repository . A exceção será interceptada e
@@ -24,10 +29,9 @@
 			<property name="password" value="usbw" />
 		</bean>
 	
-	
-	
 	<!-- MAPEAMENTO DO SESSION FACTORY -->
-	<bean class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+<!--  No HIBERNATE 4 é possível utilizar apenas uma classe para Annotation e XML:	org.springframework.orm.hibernate4.LocalSessionFactoryBean -->
+	<bean name="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 	
 		<property name="dataSource" ref="dataSource"/>
 	
@@ -38,35 +42,19 @@
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 			</props>
 		</property>
-		<!-- CONFIGURAÇÃO BASEADA EM XML -->
-		<!-- Locais a onde estão os mapeamentos das classes  -->
-<!-- 		<property name="mappingResources"> -->
-<!-- 			<list> -->
-<!-- 				<value>springforum.entidades.Assunto.hbm.xml</value> -->
-<!-- 				<value>springforum.entidades.Topico.hbm.xml</value> -->
-<!-- 				os demais arquivos seguiriam a mesma regra -->
-<!-- 			</list> -->
-<!-- 		</property> -->
-
 	
 		<!-- CONFIGURAÇÃO BASEADA EM ANOTAÇÕES -->
 		<property name="annotatedClasses">
 			<list>
 				<value>
-					jeff.study.tests.TestesSpring.DBAccess.PessoaDAOHibernate
+					jeff.study.tests.TestesSpring.DBAccess.Pessoa
 				</value>
 			</list>
 		</property>
-
-
-<!-- Ou definindo apenas os pacotes aonde se encontram nossas classes anotadas -->
-<!-- 		<property name="annotatedPackages"> -->
-<!-- 			<list> -->
-<!-- 				<value>br.com.itexto.springforum</value> -->
-<!-- 			</list> -->
-<!-- 		</property> -->
 	</bean>
 	
-	<bean id="pessoaDAOHibernate" class="jeff.study.tests.TestesSpring.DBAccess.PessoaDAOHibernate"/>
+	<bean id="pessoaDAOHibernate" class="jeff.study.tests.TestesSpring.DBAccess.PessoaDAOHibernate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
 			
 </beans>

@@ -66,10 +66,25 @@ public class App {
 	}
 	
 	
+	/**
+	 * Não funciona. Está dando erro: 
+	 * Exception in thread "main" org.springframework.orm.hibernate3.HibernateSystemException:
+	 *  No Hibernate Session bound to thread, and configuration does not allow creation of 
+	 *  non-transactional one here; nested exception is org.hibernate.HibernateException: 
+	 *  No Hibernate Session bound to thread, and configuration does not allow creation of 
+		on-transactional one here
+	 */
 	public static void testConnectionHibernate(){
 		 ApplicationContext ap =  new ClassPathXmlApplicationContext("file:src/main/java/jeff/study/tests/TestesSpring/DBAccess/springconfgs/spring-beans-hibernate.xml");
 		 PessoaDAOHibernate p = (PessoaDAOHibernate) ap.getBean("pessoaDAOHibernate");
+		 p.persistir(getPessoa());
 		 
-		 
+	}
+	
+	private static Pessoa getPessoa(){
+		 Pessoa pOther = new Pessoa();
+		 pOther.setName("Madara");
+		 pOther.setPhone(12347L);
+		 return pOther;
 	}
 }

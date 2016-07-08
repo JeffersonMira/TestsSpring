@@ -1,11 +1,20 @@
 package jeff.study.tests.TestesSpring.DBAccess;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="pessoa")
 public class Pessoa {
 
+	@Id
+	@GeneratedValue
+	@Column(name="id")
 	private Integer id;
 	
+	@Column(name="nome")
 	private String name;
 	
+	@Column(name="telefone")
 	private Long phone;
 
 	
